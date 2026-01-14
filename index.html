@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Central Azucarero de Alanje</title>
 
+<!-- ICONOS (NO BOOTSTRAP) -->
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
 <style>
 body{
     font-family: Arial, sans-serif;
@@ -71,23 +75,17 @@ th{background:#f2f2f2}
     padding:5px;
     border-radius:5px;
     font-weight:600;
-
-
 }
 
-.bono-check{
-    display:inline-block;
-    width:18px;
-    height:18px;
-    border:2px solid #333;
-    border-radius:4px;
-    text-align:center;
-    line-height:16px;
-    font-size:14px;
-    font-weight:bold;
+/* ===== BONO ESTILO PRO ===== */
+.bono-icon{
+    font-size:18px;
 }
-.bono-check.activo::after{
-    content:"✓";
+.bono-on{
+    color:#28a745; /* verde */
+}
+.bono-off{
+    color:#bbb;
 }
 </style>
 </head>
@@ -100,12 +98,13 @@ th{background:#f2f2f2}
     Ticket #: <span data-field="ticketNumber"></span>
 </div>
 
-<img class="logo" src="https://fundicionestorres.com/wp-content/uploads/2019/11/LogoCadasa-207X118-1.png">
+<img class="logo"
+src="https://fundicionestorres.com/wp-content/uploads/2019/11/LogoCadasa-207X118-1.png">
 
-<div class="header">Central Azucarero de Alanje, S.A</div>
+<div class="header">CENTRAL AZUCARERO DE ALANJE, S.A</div>
 
 <table>
-<tr><th>Fecha y Hora</th><td><span id="fechaHora"></span></td></tr>
+<tr><th>Hora y Fecha</th><td><span id="fechaHora"></span></td></tr>
 <tr><th>Agrícola</th><td><span data-field="agricola"></span></td></tr>
 <tr><th>Código Trabajo</th><td><span data-field="codigoTrabajo"></span></td></tr>
 <tr><th>Capataz</th><td><span data-field="capataz"></span></td></tr>
@@ -114,11 +113,13 @@ th{background:#f2f2f2}
 <tr><th>Unidad Producción</th><td><span data-field="up"></span></td></tr>
 <tr><th>Factor</th><td><span data-field="factor"></span></td></tr>
 
+<!-- BONO -->
 <tr>
     <th>Bono</th>
-    <td><span id="bonoCheck" class="bono-check"></span></td>
+    <td>
+        <i id="bonoIcon" class="fa-regular fa-circle bono-icon bono-off"></i>
+    </td>
 </tr>
-
 </table>
 
 <div class="total">
@@ -126,7 +127,7 @@ th{background:#f2f2f2}
 </div>
 
 <div class="qr">
-    <img id="qr" width="75" height="75">
+    <img id="qr" width="75">
 </div>
 
 <div class="footer">
@@ -136,8 +137,7 @@ th{background:#f2f2f2}
 </div>
 
 <script>
-/* === METODO QUE SÍ FUNCIONA EN GITHUB PAGES === */
-
+/* === LECTURA DE PARAMETROS === */
 function getParams(){
     const p = {};
     new URLSearchParams(window.location.search)
@@ -148,11 +148,11 @@ function getParams(){
 function fillData(){
     const p = getParams();
 
-    // llenar textos
+    // campos dinamicos
     document.querySelectorAll("[data-field]").forEach(el=>{
         const f = el.dataset.field;
         if(p[f] !== undefined){
-            el.textContent = p[f];
+            el.textContent = decodeURIComponent(p[f]);
         }
     });
 
@@ -161,21 +161,24 @@ function fillData(){
     document.getElementById("fechaHora").textContent =
         now.toLocaleDateString()+" "+now.toLocaleTimeString();
 
-    // BONO (0 = apagado, 1 = gancho)
-    document.getElementById("chkBono").checked =
-        Number(p.bono) === 1;
-
     // QR
-    const qr = document.getElementById("qr");
     if(p.qrContent){
+        const qr = document.getElementById("qr");
         qr.src =
-            "https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=" +
-            encodeURIComponent(p.qrContent);
-
-        qr.onload = () => setTimeout(()=>window.print(),200);
-    } else {
-        setTimeout(()=>window.print(),200);
+            "https://api.qrserver.com/v1/create-qr-code/?size=120x120&data="
+            + encodeURIComponent(p.qrContent);
     }
+
+    // BONO VISUAL PRO
+    const bono = Number(p.bono || 0);
+    const icon = document.getElementById("bonoIcon");
+
+    if(bono === 1){
+        icon.className = "fa-solid fa-circle-check bono-icon bono-on";
+    }
+
+    // imprimir
+    setTimeout(()=>window.print(),200);
 }
 
 window.onload = fillData;
