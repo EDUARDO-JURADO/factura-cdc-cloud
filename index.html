@@ -1,168 +1,166 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Central Azucarero de Alanje</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Central Azucarero de Alanje</title>
 
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            font-size: 10px;
-            width: 80mm;
-            margin: 0;
-            padding: 0;
-            background-color: #f9f9f9;
-            border: 2px solid #000;
-            box-sizing: border-box;
-        }
-        .ticket {
-            text-align: center;
-            padding: 10px;
-            border: 2px solid #333;
-            border-radius: 5px;
-            background-color: #fff;
-            box-shadow: 0 2px 5px rgba(0,0,0,.1);
-            position: relative;
-        }
-        .logo {
-            max-width: 60px;
-            position: absolute;
-            right: 5px;
-            top: 5px;
-        }
-        .header {
-            text-transform: uppercase;
-            font-weight: bold;
-            margin-top: 65px;
-            font-size: 10px;
-            color: #0056b3;
-            margin-bottom: 12px;
-        }
-        table {
-            width: 100%;
-            margin-top: 10px;
-            border-collapse: collapse;
-        }
-        th, td {
-            padding: 10px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-        .total {
-            font-weight: bold;
-            margin-top: 10px;
-            font-size: 14px;
-            color: #d9534f;
-        }
-        .footer {
-            margin-top: 10px;
-            text-align: right;
-            font-size: 10px;
-            color: #666;
-            border-top: 3px dashed;
-            padding-top: 10px;
-        }
-        .qr {
-            margin-top: 10px;
-            display: flex;
-            justify-content: center;
-        }
-        .ticket-number {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            font-weight: 600;
-            font-size: 12px;
-            color: #0056b3;
-            background: #e3f2fd;
-            padding: 5px 8px;
-            border-radius: 5px;
-        }
-    </style>
+<style>
+body{
+    font-family: Arial, sans-serif;
+    font-size:10px;
+    width:80mm;
+    margin:0;
+    padding:0;
+    border:2px solid #000;
+    background:#f9f9f9;
+}
+.ticket{
+    padding:10px;
+    border:2px solid #333;
+    border-radius:5px;
+    background:#fff;
+    position:relative;
+    text-align:center;
+}
+.logo{
+    max-width:60px;
+    position:absolute;
+    right:5px;
+    top:5px;
+}
+.header{
+    margin-top:65px;
+    font-weight:bold;
+    color:#0056b3;
+}
+table{
+    width:100%;
+    margin-top:10px;
+    border-collapse:collapse;
+}
+th,td{
+    padding:6px;
+    text-align:left;
+    border-bottom:1px solid #ddd;
+}
+th{background:#f2f2f2}
+.total{
+    font-size:14px;
+    font-weight:bold;
+    margin-top:10px;
+    color:#d9534f;
+}
+.footer{
+    margin-top:10px;
+    border-top:3px dashed;
+    padding-top:10px;
+    font-size:10px;
+    text-align:right;
+}
+.qr{
+    display:flex;
+    justify-content:center;
+    margin-top:10px;
+}
+.ticket-number{
+    position:absolute;
+    left:10px;
+    top:10px;
+    background:#e3f2fd;
+    padding:5px;
+    border-radius:5px;
+    font-weight:600;
+}
+</style>
 </head>
 
 <body>
 
 <div class="ticket">
-    <div class="ticket-number">
-        Ticket #: <span id="ticket-number"></span>
-    </div>
 
-    <img src="https://fundicionestorres.com/wp-content/uploads/2019/11/LogoCadasa-207X118-1.png" class="logo">
+<div class="ticket-number">
+    Ticket #: <span data-field="ticketNumber"></span>
+</div>
 
-    <div class="header">Central Azucarero de Alanje, S.A</div>
+<img class="logo" src="https://fundicionestorres.com/wp-content/uploads/2019/11/LogoCadasa-207X118-1.png">
 
-    <table>
-        <tr><th>Hora y Fecha</th><td><span id="fecha-hora"></span></td></tr>
-        <tr><th>Agrícola</th><td><span id="agricola"></span></td></tr>
-        <tr><th>Código Trabajo</th><td><span id="codigo-trabajo"></span></td></tr>
-        <tr><th>Capataz</th><td><span id="capataz"></span></td></tr>
-        <tr><th>Rata</th><td><span id="monto-pagar"></span></td></tr>
-        <tr><th>Cantidad</th><td><span id="cantidad"></span></td></tr>
-        <tr><th>Unidad de Producción</th><td><span id="up"></span></td></tr>
-        <tr><th>Factor</th><td><span id="factor"></span></td></tr>
+<div class="header">Central Azucarero de Alanje, S.A</div>
 
-        <!-- 🔹 BONO -->
-        <tr>
-            <th>Bono</th>
-            <td>
-                <input type="checkbox" id="chkBono" disabled>
-            </td>
-        </tr>
-    </table>
+<table>
+<tr><th>Fecha y Hora</th><td><span id="fechaHora"></span></td></tr>
+<tr><th>Agrícola</th><td><span data-field="agricola"></span></td></tr>
+<tr><th>Código Trabajo</th><td><span data-field="codigoTrabajo"></span></td></tr>
+<tr><th>Capataz</th><td><span data-field="capataz"></span></td></tr>
+<tr><th>Rata</th><td>B/. <span data-field="montoPagar"></span></td></tr>
+<tr><th>Cantidad</th><td><span data-field="cantidad"></span></td></tr>
+<tr><th>Unidad Producción</th><td><span data-field="up"></span></td></tr>
+<tr><th>Factor</th><td><span data-field="factor"></span></td></tr>
 
-    <div class="total">
-        Total: <span id="total"></span>
-    </div>
+<tr>
+    <th>Bono</th>
+    <td><input type="checkbox" id="chkBono" disabled></td>
+</tr>
+</table>
 
-    <div class="qr">
-        <img id="qrContent" src="" alt="QR">
-    </div>
+<div class="total">
+    Total: B/. <span data-field="total"></span>
+</div>
 
-    <div class="footer">
-        Supervisor: <span id="supervisor"></span>
-    </div>
+<div class="qr">
+    <img id="qr" width="75" height="75">
+</div>
+
+<div class="footer">
+    Supervisor: <span data-field="supervisor"></span>
+</div>
+
 </div>
 
 <script>
-    // 🔹 Leer parámetros URL (GitHub Pages)
-    const params = new URLSearchParams(window.location.search);
+/* === METODO QUE SÍ FUNCIONA EN GITHUB PAGES === */
 
-    document.getElementById("ticket-number").innerText = params.get("ticketNumber") || "";
-    document.getElementById("agricola").innerText = params.get("agricola") || "";
-    document.getElementById("codigo-trabajo").innerText = params.get("codigoTrabajo") || "";
-    document.getElementById("capataz").innerText = params.get("capataz") || "";
-    document.getElementById("cantidad").innerText = params.get("cantidad") || "";
-    document.getElementById("up").innerText = params.get("up") || "";
-    document.getElementById("factor").innerText = params.get("factor") || "";
-    document.getElementById("supervisor").innerText = params.get("supervisor") || "";
+function getParams(){
+    const p = {};
+    new URLSearchParams(window.location.search)
+        .forEach((v,k)=>p[k]=v);
+    return p;
+}
 
-    document.getElementById("monto-pagar").innerText =
-        "B/. " + (params.get("montoPagar") || "0");
+function fillData(){
+    const p = getParams();
 
-    document.getElementById("total").innerText =
-        "B/. " + (params.get("total") || "0");
+    // llenar textos
+    document.querySelectorAll("[data-field]").forEach(el=>{
+        const f = el.dataset.field;
+        if(p[f] !== undefined){
+            el.textContent = p[f];
+        }
+    });
 
-    // Fecha y hora
+    // fecha hora
     const now = new Date();
-    document.getElementById("fecha-hora").innerText =
-        now.toLocaleDateString() + " " + now.toLocaleTimeString();
+    document.getElementById("fechaHora").textContent =
+        now.toLocaleDateString()+" "+now.toLocaleTimeString();
+
+    // BONO (0 = apagado, 1 = gancho)
+    document.getElementById("chkBono").checked =
+        Number(p.bono) === 1;
 
     // QR
-    document.getElementById("qrContent").src =
-        "https://api.qrserver.com/v1/create-qr-code/?size=75x75&data=" +
-        (params.get("qrContent") || "");
+    const qr = document.getElementById("qr");
+    if(p.qrContent){
+        qr.src =
+            "https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=" +
+            encodeURIComponent(p.qrContent);
 
-    // 🔹 BONO (YA FUNCIONA)
-    const bono = Number(params.get("bono") || 0);
-    document.getElementById("chkBono").checked = bono === 1;
+        qr.onload = () => setTimeout(()=>window.print(),200);
+    } else {
+        setTimeout(()=>window.print(),200);
+    }
+}
 
-    // 🔹 Imprimir automático
-    setTimeout(() => window.print(), 100);
+window.onload = fillData;
 </script>
 
 </body>
