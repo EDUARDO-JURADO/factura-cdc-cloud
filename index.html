@@ -3,89 +3,91 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Central Azucarero de Alanje</title>
+<title>Factura - Central Azucarero de Alanje</title>
 
-<!-- ICONOS (NO BOOTSTRAP) -->
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+<!-- ICONOS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 
 <style>
 body{
-    font-family: Arial, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     font-size:10px;
     width:80mm;
     margin:0;
-    padding:0;
-    border:2px solid #000;
-    background:#f9f9f9;
-}
-.ticket{
-    padding:10px;
-    border:2px solid #333;
-    border-radius:5px;
-    background:#fff;
-    position:relative;
-    text-align:center;
-}
-.logo{
-    max-width:60px;
-    position:absolute;
-    right:5px;
-    top:5px;
-}
-.header{
-    margin-top:65px;
-    font-weight:bold;
-    color:#0056b3;
-}
-table{
-    width:100%;
-    margin-top:10px;
-    border-collapse:collapse;
-}
-th,td{
     padding:6px;
-    text-align:left;
-    border-bottom:1px solid #ddd;
-}
-th{background:#f2f2f2}
-.total{
-    font-size:14px;
-    font-weight:bold;
-    margin-top:10px;
-    color:#d9534f;
-}
-.footer{
-    margin-top:10px;
-    border-top:3px dashed;
-    padding-top:10px;
-    font-size:10px;
-    text-align:right;
-}
-.qr{
-    display:flex;
-    justify-content:center;
-    margin-top:10px;
-}
-.ticket-number{
-    position:absolute;
-    left:10px;
-    top:10px;
-    background:#e3f2fd;
-    padding:5px;
-    border-radius:5px;
-    font-weight:600;
+    background:#fff;
 }
 
-/* ===== BONO ESTILO PRO ===== */
+.ticket{
+    border:1px solid #000;
+    padding:10px;
+    border-radius:4px;
+}
+
+.logo{
+    width:50px;
+    display:block;
+    margin:0 auto 5px auto;
+}
+
+.header{
+    text-align:center;
+    font-weight:bold;
+    font-size:11px;
+    margin-bottom:2px;
+}
+
+.subheader{
+    text-align:center;
+    font-size:9px;
+    margin-bottom:6px;
+}
+
+.divider{
+    border-top:1px dashed #000;
+    margin:6px 0;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-bottom:6px;
+}
+
+th{
+    text-align:left;
+    padding:3px 0;
+    font-weight:bold;
+}
+
+td{
+    text-align:right;
+    padding:3px 0;
+}
+
+.total-box{
+    border:1px solid #000;
+    padding:6px;
+    text-align:center;
+    font-weight:bold;
+    margin-top:6px;
+}
+
+.qr{
+    text-align:center;
+    margin:6px 0;
+}
+
+.footer{
+    margin-top:6px;
+    border-top:1px dashed #000;
+    padding-top:4px;
+    text-align:right;
+    font-size:9px;
+}
+
 .bono-icon{
-    font-size:18px;
-}
-.bono-on{
-    color:#28a745; /* verde */
-}
-.bono-off{
-    color:#bbb;
+    font-size:12px;
 }
 </style>
 </head>
@@ -94,40 +96,38 @@ th{background:#f2f2f2}
 
 <div class="ticket">
 
-<div class="ticket-number">
-    Ticket #: <span data-field="ticketNumber"></span>
-</div>
-
-<img class="logo"
-src="https://fundicionestorres.com/wp-content/uploads/2019/11/LogoCadasa-207X118-1.png">
+<img class="logo" src="https://fundicionestorres.com/wp-content/uploads/2019/11/LogoCadasa-207X118-1.png">
 
 <div class="header">CENTRAL AZUCARERO DE ALANJE, S.A</div>
+<div class="subheader">Comprobante de Producción</div>
+
+<div class="divider"></div>
 
 <table>
-<tr><th>Hora y Fecha</th><td><span id="fechaHora"></span></td></tr>
-<tr><th>Agrícola</th><td><span data-field="agricola"></span></td></tr>
-<tr><th>Código Trabajo</th><td><span data-field="codigoTrabajo"></span></td></tr>
-<tr><th>Capataz</th><td><span data-field="capataz"></span></td></tr>
+<tr><th>Ticket #</th><td data-field="ticketNumber"></td></tr>
+<tr><th>Fecha / Hora</th><td id="fechaHora"></td></tr>
+<tr><th>Agrícola</th><td data-field="agricola"></td></tr>
+<tr><th>Código Trabajo</th><td data-field="codigoTrabajo"></td></tr>
+<tr><th>Capataz</th><td data-field="capataz"></td></tr>
 <tr><th>Rata</th><td>B/. <span data-field="montoPagar"></span></td></tr>
-<tr><th>Cantidad</th><td><span data-field="cantidad"></span></td></tr>
-<tr><th>Unidad Producción</th><td><span data-field="up"></span></td></tr>
-<tr><th>Factor</th><td><span data-field="factor"></span></td></tr>
-
-<!-- BONO -->
+<tr><th>Cantidad</th><td data-field="cantidad"></td></tr>
+<tr><th>Unidad Producción</th><td data-field="up"></td></tr>
+<tr><th>Factor</th><td data-field="factor"></td></tr>
 <tr>
     <th>Bono</th>
     <td>
-        <i id="bonoIcon" class="fa-regular fa-circle bono-icon bono-off"></i>
+        <i id="bonoIcon" class="fa-solid fa-x bono-icon"></i>
     </td>
 </tr>
 </table>
 
-<div class="total">
-    Total: B/. <span data-field="total"></span>
+<div class="total-box">
+    TOTAL <br>
+    B/. <span data-field="total"></span>
 </div>
 
 <div class="qr">
-    <img id="qr" width="75">
+    <img id="qr" width="90" style="display:none">
 </div>
 
 <div class="footer">
@@ -137,51 +137,51 @@ src="https://fundicionestorres.com/wp-content/uploads/2019/11/LogoCadasa-207X118
 </div>
 
 <script>
-/* === LECTURA DE PARAMETROS === */
 function getParams(){
-    const p = {};
-    new URLSearchParams(window.location.search)
-        .forEach((v,k)=>p[k]=v);
+    const p={};
+    new URLSearchParams(window.location.search).forEach((v,k)=>p[k]=v);
     return p;
 }
 
 function fillData(){
-    const p = getParams();
+    const p=getParams();
 
-    // campos dinamicos
+    // Rellenar campos
     document.querySelectorAll("[data-field]").forEach(el=>{
-        const f = el.dataset.field;
-        if(p[f] !== undefined){
-            el.textContent = decodeURIComponent(p[f]);
+        const f=el.dataset.field;
+        if(p[f]!==undefined){
+            el.textContent=decodeURIComponent(p[f]);
         }
     });
 
-    // fecha hora
-    const now = new Date();
-    document.getElementById("fechaHora").textContent =
+    // Fecha y hora
+    const now=new Date();
+    document.getElementById("fechaHora").textContent=
         now.toLocaleDateString()+" "+now.toLocaleTimeString();
 
+    // Bono ✔ o X
+    const bonoIcon=document.getElementById("bonoIcon");
+    if(Number(p.bono||0)===1){
+        bonoIcon.className="fa-solid fa-check bono-icon";
+    } else {
+        bonoIcon.className="fa-solid fa-x bono-icon";
+    }
+
     // QR
+    const qrEl=document.getElementById("qr");
     if(p.qrContent){
-        const qr = document.getElementById("qr");
-        qr.src =
-            "https://api.qrserver.com/v1/create-qr-code/?size=120x120&data="
-            + encodeURIComponent(p.qrContent);
+        qrEl.src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data="
+                  +encodeURIComponent(p.qrContent);
+        qrEl.style.display="block";
+    } else {
+        qrEl.style.display="none";
     }
 
-    // BONO VISUAL PRO
-    const bono = Number(p.bono || 0);
-    const icon = document.getElementById("bonoIcon");
-
-    if(bono === 1){
-        icon.className = "fa-solid fa-circle-check bono-icon bono-on";
-    }
-
-    // imprimir
+    // Imprimir automáticamente
     setTimeout(()=>window.print(),200);
 }
 
-window.onload = fillData;
+window.onload=fillData;
 </script>
 
 </body>
