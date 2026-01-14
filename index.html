@@ -88,7 +88,10 @@
 <body>
 
 <div class="ticket">
-    <div class="ticket-number">Ticket #: <span id="ticket-number"></span></div>
+    <div class="ticket-number">
+        Ticket #: <span id="ticket-number"></span>
+    </div>
+
     <img src="https://fundicionestorres.com/wp-content/uploads/2019/11/LogoCadasa-207X118-1.png" class="logo">
 
     <div class="header">Central Azucarero de Alanje, S.A</div>
@@ -103,7 +106,7 @@
         <tr><th>Unidad de Producción</th><td><span id="up"></span></td></tr>
         <tr><th>Factor</th><td><span id="factor"></span></td></tr>
 
-        <!-- 🔹 BONO (NUEVO, SOLO VISUAL) -->
+        <!-- 🔹 BONO -->
         <tr>
             <th>Bono</th>
             <td>
@@ -117,7 +120,7 @@
     </div>
 
     <div class="qr">
-        <img id="qrContent" src="">
+        <img id="qrContent" src="" alt="QR">
     </div>
 
     <div class="footer">
@@ -126,34 +129,40 @@
 </div>
 
 <script>
-    var now = new Date();
-    var datetime = now.toLocaleDateString() + " " + now.toLocaleTimeString();
+    // 🔹 Leer parámetros URL (GitHub Pages)
+    const params = new URLSearchParams(window.location.search);
 
-    document.getElementById("ticket-number").innerHTML = "<?= $ticketNumber ?>";
-    document.getElementById("fecha-hora").innerHTML = datetime;
-    document.getElementById("agricola").innerHTML = "<?= $agricola ?>";
-    document.getElementById("codigo-trabajo").innerHTML = "<?= $codigoTrabajo ?>";
-    document.getElementById("monto-pagar").innerHTML = "B/. <?= $montoPagar ?>";
-    document.getElementById("cantidad").innerHTML = "<?= $cantidad ?>";
-    document.getElementById("up").innerHTML = "<?= $up ?>";
-    document.getElementById("factor").innerHTML = "<?= $factor ?>";
-    document.getElementById("capataz").innerHTML = "<?= $capataz ?>";
-    document.getElementById("supervisor").innerHTML = "<?= $supervisor ?>";
-    document.getElementById("total").innerHTML = "B/. <?= $total ?>";
+    document.getElementById("ticket-number").innerText = params.get("ticketNumber") || "";
+    document.getElementById("agricola").innerText = params.get("agricola") || "";
+    document.getElementById("codigo-trabajo").innerText = params.get("codigoTrabajo") || "";
+    document.getElementById("capataz").innerText = params.get("capataz") || "";
+    document.getElementById("cantidad").innerText = params.get("cantidad") || "";
+    document.getElementById("up").innerText = params.get("up") || "";
+    document.getElementById("factor").innerText = params.get("factor") || "";
+    document.getElementById("supervisor").innerText = params.get("supervisor") || "";
 
+    document.getElementById("monto-pagar").innerText =
+        "B/. " + (params.get("montoPagar") || "0");
+
+    document.getElementById("total").innerText =
+        "B/. " + (params.get("total") || "0");
+
+    // Fecha y hora
+    const now = new Date();
+    document.getElementById("fecha-hora").innerText =
+        now.toLocaleDateString() + " " + now.toLocaleTimeString();
+
+    // QR
     document.getElementById("qrContent").src =
-        "https://api.qrserver.com/v1/create-qr-code/?size=75x75&data=<?= $qrContent ?>";
+        "https://api.qrserver.com/v1/create-qr-code/?size=75x75&data=" +
+        (params.get("qrContent") || "");
 
-    // ✅ BONO SIN ERROR
-    var bono = Number("<?= isset($bono) ? $bono : 0 ?>");
+    // 🔹 BONO (YA FUNCIONA)
+    const bono = Number(params.get("bono") || 0);
     document.getElementById("chkBono").checked = bono === 1;
-</script>
 
-<script>
-    function imprimirDirecto() {
-        setTimeout(() => window.print(), 100);
-    }
-    window.addEventListener("load", imprimirDirecto);
+    // 🔹 Imprimir automático
+    setTimeout(() => window.print(), 100);
 </script>
 
 </body>
