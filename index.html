@@ -71,6 +71,23 @@ th{background:#f2f2f2}
     padding:5px;
     border-radius:5px;
     font-weight:600;
+
+
+}
+
+.bono-check{
+    display:inline-block;
+    width:18px;
+    height:18px;
+    border:2px solid #333;
+    border-radius:4px;
+    text-align:center;
+    line-height:16px;
+    font-size:14px;
+    font-weight:bold;
+}
+.bono-check.activo::after{
+    content:"✓";
 }
 </style>
 </head>
@@ -99,8 +116,9 @@ th{background:#f2f2f2}
 
 <tr>
     <th>Bono</th>
-    <td><input type="checkbox" id="chkBono" disabled></td>
+    <td><span id="bonoCheck" class="bono-check"></span></td>
 </tr>
+
 </table>
 
 <div class="total">
